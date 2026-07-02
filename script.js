@@ -7,10 +7,13 @@ if(flowGallery&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
     const nx=(event.clientX-rect.left)/rect.width-.5;
     const ny=(event.clientY-rect.top)/rect.height-.5;
     flowCards.forEach(card=>{
-      const depth=Number(card.dataset.depth||1);
-      card.style.setProperty('--dx',(nx*82*depth)+'px');
-      card.style.setProperty('--dy',(ny*54*depth)+'px');
-      card.style.setProperty('--dr',(nx*7*depth)+'deg');
+      const moveX=Number(card.dataset.mx||80);
+      const moveY=Number(card.dataset.my||55);
+      const cross=Number(card.dataset.cross||0);
+      const rotate=Number(card.dataset.rot||8);
+      card.style.setProperty('--dx',(nx*moveX+ny*cross)+'px');
+      card.style.setProperty('--dy',(ny*moveY-nx*cross*.45)+'px');
+      card.style.setProperty('--dr',(nx*rotate+ny*rotate*.35)+'deg');
     });
   });
   flowGallery.addEventListener('pointerleave',()=>flowCards.forEach(card=>{
